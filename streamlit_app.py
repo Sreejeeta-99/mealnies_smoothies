@@ -35,11 +35,12 @@ if ingredients_list:
         
         st.subheader(fruit_chosen + ' Nutrition Information')
         
-        # Call the SmoothieFroot API using the search value
+        # Call the SmoothieFroot API
         smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/" + search_on_val)
         sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
  
-    # 5. Build the SQL Insert Statement (Outside the loop!)
+    # 5. Build the SQL Insert Statement 
+    # (Notice this is outside the 'for' loop but inside the 'if')
     my_insert_stmt = """ insert into smoothies.public.orders(ingredients, name_on_order)
                 values ('""" + ingredients_string + """', '""" + name_on_order + """')"""
  
@@ -49,3 +50,4 @@ if ingredients_list:
     if time_to_insert:
         session.sql(my_insert_stmt).collect()
         st.success('Your Smoothie is ordered, ' + name_on_order + '!', icon="✅")
+ 
