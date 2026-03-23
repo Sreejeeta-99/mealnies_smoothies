@@ -31,11 +31,11 @@ if ingredients_list:
         
         # Pull the SEARCH_ON value for the specific fruit
         search_on_val = my_dataframe.filter(col('FRUIT_NAME') == fruit_chosen).collect()[0]['SEARCH_ON']
-        # st.write('The search value for ', fruit_chosen, ' is ', search_on_val, '.') # Optional Debug line
+        st.write('The search value for ', fruit_chosen, ' is ', search_on_val, '.')
         
         st.subheader(fruit_chosen + ' Nutrition Information')
         
-        # Call the SmoothieFroot API
+        # Call the SmoothieFroot API using the search value
         smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/" + search_on_val)
         sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
  
@@ -43,9 +43,12 @@ if ingredients_list:
     my_insert_stmt = """ insert into smoothies.public.orders(ingredients, name_on_order)
                 values ('""" + ingredients_string + """', '""" + name_on_order + """')"""
  
-    # 6. Submit the Order
+    # 6. Create the Submit Button
     time_to_insert = st.button('Submit Order')
  
     if time_to_insert:
         session.sql(my_insert_stmt).collect()
         st.success('Your Smoothie is ordered, ' + name_on_order + '!', icon="✅")
+ 
+H
+ 
