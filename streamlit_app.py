@@ -21,9 +21,9 @@ st.write(
 #st.write("Your favorite fruit is:", option)
 
 import requests  
-smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")  
+#smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")  
 #st.text(smoothiefroot_response.json())
-sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
+#sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
 
  
 name_on_order = st.text_input('Name on smoothie')
@@ -50,6 +50,9 @@ if ingredients_list:
     for i in ingredients_list:
         ingredients_string += i + " "
     #st.write(ingredients_string)
+        smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")  
+        sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
+
 
     # Updated SQL string to include the second column name
     my_insert_stmt = """ insert into smoothies.public.orders(ingredients, name_on_order)
