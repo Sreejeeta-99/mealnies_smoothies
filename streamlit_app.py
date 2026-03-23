@@ -93,4 +93,3 @@ if ingredients_list:
                 st.success(f"Your Smoothie is ordered, {name_on_order}!", icon="✅")
             except Exception as ex:
                 st.error(f"Could not insert order into Snowflake: {ex}")
-``
